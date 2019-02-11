@@ -254,6 +254,12 @@ env.find_transcript(transaction_token)
 env.update_credit_card(credit_card_token, first_name: 'JimBob', last_name: 'Jones')
 ```
 
+#### Updating a gateway
+
+ ``` ruby
+ env.update_gateway(gateway_token, merchant_id: 'newMerchantId', public_key: 'newPublicKey', private_key: 'newPrivateKey')
+ ```
+
 #### Adding other types of gateways
 
 ``` ruby

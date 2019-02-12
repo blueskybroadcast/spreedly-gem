@@ -141,6 +141,12 @@ module Spreedly
       PaymentMethod.new_from(xml_doc)
     end
 
+    def update_gateway(gateway_token, options = {})
+      body = update_gateway_body(gateway_token, options)
+      xml_doc = ssl_put(update_gateway_url(gateway_token), body, headers)
+      Gateway.new(xml_doc)
+    end
+
     def deliver_to_receiver(receiver_token, payment_method_token, receiver_options)
       body = deliver_to_receiver_body(payment_method_token, receiver_options)
       api_post(deliver_to_receiver_url(receiver_token), body)
@@ -253,6 +259,12 @@ module Spreedly
         add_to_doc(doc, options, :email, :month, :full_name, :first_name, :last_name, :year,
                    :address1, :address2, :city, :state, :zip, :country, :phone_number,
                    :eligible_for_card_updater)
+      end
+    end
+
+    def update_gateway_body(gateway_token, options)
+      build_xml_request('gateway') do |doc|
+        add_to_doc(doc, options, *options.keys)
       end
     end
 
